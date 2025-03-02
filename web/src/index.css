@@ -1,0 +1,400 @@
+/* Steampunk CSS Theme */
+
+:root {
+  --brass-light: #d6b160;
+  --brass-medium: #b5965a;
+  --brass-dark: #9a7940;
+  --copper: #b87333;
+  --aged-paper: #f2e8c9;
+  --leather-dark: #5c4033;
+  --leather-medium: #8b5a2b;
+  --iron-dark: #36454f;
+  --iron-light: #708090;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--aged-paper);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239a7940' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  color: var(--leather-dark);
+  line-height: 1.5;
+  padding: 1rem;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  color: var(--leather-dark);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--brass-medium);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+h1 > a {
+  text-decoration: none;
+  color: var(--leather-dark);
+  transition: color 0.3s ease;
+}
+
+h1 > a:hover {
+  color: var(--copper);
+  text-shadow: 0 0 5px rgba(184, 115, 51, 0.3);
+}
+
+/* Navigation */
+ul {
+  list-style-type: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: flex;
+  border: 3px solid var(--brass-medium);
+  background: linear-gradient(to bottom, var(--brass-light), var(--brass-dark));
+  border-radius: 5px;
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+li {
+  display: inline-block;
+  margin: 0;
+  border-right: 1px solid var(--brass-dark);
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  color: var(--iron-dark);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+li a:hover {
+  background-color: var(--copper);
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Form Elements */
+button,
+input[type="submit"] {
+  background: linear-gradient(to bottom, var(--brass-light), var(--brass-dark));
+  border: 2px solid var(--brass-dark);
+  color: var(--leather-dark);
+  padding: 0.75rem 1.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 2px 4px var(--shadow);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+}
+
+button:before,
+input[type="submit"]:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  height: 3px;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background: linear-gradient(to bottom, var(--brass-medium), var(--brass-dark));
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 4px 8px var(--shadow);
+}
+
+button:active,
+input[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 1px 2px var(--shadow);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: var(--aged-paper);
+  border: 2px solid var(--brass-medium);
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--leather-dark);
+  box-shadow:
+    inset 0 1px 3px var(--shadow),
+    0 1px 0 rgba(255,255,255,0.8);
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--copper);
+  box-shadow:
+    inset 0 1px 3px var(--shadow),
+    0 0 8px rgba(184, 115, 51, 0.5);
+}
+
+label {
+  display: block;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--leather-dark);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Error Styles */
+.error {
+  color: #b22222;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+input.error,
+textarea.error {
+  border: 2px solid #b22222;
+  background-color: rgba(178, 34, 34, 0.05);
+}
+
+.form-error {
+  color: #b22222;
+  background-color: rgba(178, 34, 34, 0.1);
+  border: 2px solid #b22222;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 1rem 0;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.form-error ul {
+  list-style-type: disc;
+  background: none;
+  border: none;
+  display: block;
+  margin: 1rem;
+  padding: 0 1rem;
+  box-shadow: none;
+}
+
+.form-error li {
+  display: list-item;
+  border: none;
+  color: #b22222;
+  margin-bottom: 0.5rem;
+}
+
+/* Layout Utilities */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.flex-between button {
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+/* Content Panels */
+.panel {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 3px solid var(--brass-medium);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.8),
+    0 4px 8px var(--shadow);
+  position: relative;
+}
+
+.panel:before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  right: 20px;
+  height: 3px;
+  background-color: var(--brass-light);
+  border-radius: 3px;
+}
+
+.panel:after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 20px;
+  right: 20px;
+  height: 3px;
+  background-color: var(--brass-dark);
+  border-radius: 3px;
+}
+
+/* Links styling */
+a {
+  color: var(--copper);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+a:hover {
+  color: var(--brass-dark);
+}
+
+a:not(h1 > a):not(li a):after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--copper);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+a:not(h1 > a):not(li a):hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  border: 3px solid var(--brass-medium);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+th {
+  background: linear-gradient(to bottom, var(--brass-light), var(--brass-medium));
+  color: var(--leather-dark);
+  text-transform: uppercase;
+  padding: 1rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid var(--brass-dark);
+}
+
+td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--brass-light);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) td {
+  background-color: rgba(214, 177, 96, 0.1);
+}
+
+/* Add gears to corners of the page */
+body:before,
+body:after {
+  content: "";
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%239a7940' d='M50 0c-1.7 0-3 1.3-3 3v7.9c-2.6.5-5.1 1.2-7.5 2.2l-5.6-5.6c-1.2-1.2-3.1-1.2-4.2 0L21.5 15.7c-1.2 1.2-1.2 3.1 0 4.2l5.6 5.6c-1 2.4-1.7 4.9-2.2 7.5H17c-1.7 0-3 1.3-3 3v12.1c0 1.7 1.3 3 3 3h7.9c.5 2.6 1.2 5.1 2.2 7.5l-5.6 5.6c-1.2 1.2-1.2 3.1 0 4.2l8.5 8.5c1.2 1.2 3.1 1.2 4.2 0l5.6-5.6c2.4 1 4.9 1.7 7.5 2.2V83c0 1.7 1.3 3 3 3h12.1c1.7 0 3-1.3 3-3v-7.9c2.6-.5 5.1-1.2 7.5-2.2l5.6 5.6c1.2 1.2 3.1 1.2 4.2 0l8.5-8.5c1.2-1.2 1.2-3.1 0-4.2l-5.6-5.6c1-2.4 1.7-4.9 2.2-7.5H83c1.7 0 3-1.3 3-3V37.9c0-1.7-1.3-3-3-3h-7.9c-.5-2.6-1.2-5.1-2.2-7.5l5.6-5.6c1.2-1.2 1.2-3.1 0-4.2l-8.5-8.5c-1.2-1.2-3.1-1.2-4.2 0l-5.6 5.6c-2.4-1-4.9-1.7-7.5-2.2V3c0-1.7-1.3-3-3-3H50zm6 33c6.1 0 11 4.9 11 11s-4.9 11-11 11-11-4.9-11-11 4.9-11 11-11z'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  z-index: -1;
+}
+
+body:before {
+  top: 20px;
+  left: 20px;
+}
+
+body:after {
+  bottom: 20px;
+  right: 20px;
+  transform: rotate(45deg);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--aged-paper);
+  border-left: 1px solid var(--brass-medium);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, var(--brass-light), var(--brass-dark));
+  border-radius: 6px;
+  border: 2px solid var(--aged-paper);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--copper);
+}
+
+/* Code blocks */
+pre, code {
+  background-color: rgba(92, 64, 51, 0.1);
+  border: 1px solid var(--leather-medium);
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0.2em 0.4em;
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+pre:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to right, var(--brass-light), var(--brass-dark));
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
