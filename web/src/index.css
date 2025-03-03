@@ -48,7 +48,7 @@ h1 > a:hover {
 }
 
 /* Navigation */
-ul {
+nav ul {
   list-style-type: none;
   margin: 1rem 0;
   padding: 0;
@@ -59,17 +59,17 @@ ul {
   box-shadow: 0 4px 8px var(--shadow);
 }
 
-li {
+nav li {
   display: inline-block;
   margin: 0;
   border-right: 1px solid var(--brass-dark);
 }
 
-li:last-child {
+nav li:last-child {
   border-right: none;
 }
 
-li a {
+nav li a {
   display: block;
   padding: 0.8rem 1.5rem;
   color: var(--iron-dark);
@@ -80,10 +80,40 @@ li a {
   transition: all 0.3s ease;
 }
 
-li a:hover {
+nav li a:hover {
   background-color: var(--copper);
   color: white;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Default list styling that doesn't affect navigation */
+ul:not(nav ul) {
+  list-style-type: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
+ul:not(nav ul) li {
+  display: block;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(to bottom, var(--brass-light), var(--brass-dark));
+  border: 3px solid var(--brass-dark);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow);
+  position: relative;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  color: var(--leather-dark);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+ul:not(nav ul) li:before,
+ul:not(nav ul) li:after {
+  display: none;
 }
 
 /* Form Elements */
@@ -274,7 +304,7 @@ a:hover {
   color: var(--brass-dark);
 }
 
-a:not(h1 > a):not(li a):after {
+a:not(h1 > a):not(nav li a):after {
   content: "";
   position: absolute;
   width: 100%;
@@ -287,7 +317,7 @@ a:not(h1 > a):not(li a):after {
   transition: transform 0.3s ease;
 }
 
-a:not(h1 > a):not(li a):hover:after {
+a:not(h1 > a):not(nav li a):hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
