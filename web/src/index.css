@@ -1,16 +1,22 @@
-/* Steampunk CSS Theme */
+/* Advanced Steampunk CSS Theme with Animations */
 
 :root {
   --brass-light: #d6b160;
   --brass-medium: #b5965a;
   --brass-dark: #9a7940;
   --copper: #b87333;
+  --copper-light: #d08c51;
+  --copper-dark: #8c5324;
   --aged-paper: #f2e8c9;
+  --aged-paper-dark: #e6d6a9;
   --leather-dark: #5c4033;
   --leather-medium: #8b5a2b;
   --iron-dark: #36454f;
   --iron-light: #708090;
   --shadow: rgba(0, 0, 0, 0.5);
+  --steam-white: rgba(255, 255, 255, 0.8);
+  --steam-blue: rgba(220, 240, 255, 0.6);
+  --gauge-red: #b22222;
 }
 
 /* Base Styles */
@@ -22,6 +28,49 @@ body {
   line-height: 1.5;
   padding: 1rem;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Steam Effects */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 20%, var(--steam-white) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, var(--steam-blue) 0%, transparent 40%);
+  opacity: 0.2;
+  z-index: 999;
+  filter: blur(8px);
+  animation: steam-drift 120s infinite alternate ease-in-out;
+}
+
+@keyframes steam-drift {
+  0% {
+    background-position: 0% 0%, 100% 100%;
+    opacity: 0.1;
+  }
+  25% {
+    background-position: 20% 10%, 80% 90%;
+    opacity: 0.15;
+  }
+  50% {
+    background-position: 30% 20%, 70% 80%;
+    opacity: 0.2;
+  }
+  75% {
+    background-position: 10% 30%, 90% 70%;
+    opacity: 0.15;
+  }
+  100% {
+    background-position: 0% 40%, 100% 60%;
+    opacity: 0.1;
+  }
 }
 
 /* Typography */
@@ -34,6 +83,39 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 0.5rem;
   margin-top: 2rem;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+/* Add decorative gears to headings */
+h1::before, h2::before, h3::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23b5965a' d='M50 0c-1.7 0-3 1.3-3 3v7.9c-2.6.5-5.1 1.2-7.5 2.2l-5.6-5.6c-1.2-1.2-3.1-1.2-4.2 0L21.5 15.7c-1.2 1.2-1.2 3.1 0 4.2l5.6 5.6c-1 2.4-1.7 4.9-2.2 7.5H17c-1.7 0-3 1.3-3 3v12.1c0 1.7 1.3 3 3 3h7.9c.5 2.6 1.2 5.1 2.2 7.5l-5.6 5.6c-1.2 1.2-1.2 3.1 0 4.2l8.5 8.5c1.2 1.2 3.1 1.2 4.2 0l5.6-5.6c2.4 1 4.9 1.7 7.5 2.2V83c0 1.7 1.3 3 3 3h12.1c1.7 0 3-1.3 3-3v-7.9c2.6-.5 5.1-1.2 7.5-2.2l5.6 5.6c1.2 1.2 3.1 1.2 4.2 0l8.5-8.5c1.2-1.2 1.2-3.1 0-4.2l-5.6-5.6c1-2.4 1.7-4.9 2.2-7.5H83c1.7 0 3-1.3 3-3V37.9c0-1.7-1.3-3-3-3h-7.9c-.5-2.6-1.2-5.1-2.2-7.5l5.6-5.6c1.2-1.2 1.2-3.1 0-4.2l-8.5-8.5c-1.2-1.2-3.1-1.2-4.2 0l-5.6 5.6c-2.4-1-4.9-1.7-7.5-2.2V3c0-1.7-1.3-3-3-3H50z'/%3E%3C/svg%3E");
+  background-size: contain;
+  animation: gear-spin 20s linear infinite;
+  opacity: 0.7;
+}
+
+h2::before {
+  width: 16px;
+  height: 16px;
+  animation-duration: 25s;
+  animation-direction: reverse;
+}
+
+h3::before {
+  width: 12px;
+  height: 12px;
+  animation-duration: 15s;
+}
+
+@keyframes gear-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 h1 > a {
@@ -47,22 +129,107 @@ h1 > a:hover {
   text-shadow: 0 0 5px rgba(184, 115, 51, 0.3);
 }
 
-/* Navigation */
+/* Add ornamental rivets to headings */
+h1::after, h2::after, h3::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+  width: 100%;
+  height: 4px;
+  background-image:
+    radial-gradient(circle, var(--brass-dark) 1px, transparent 2px),
+    radial-gradient(circle, var(--copper) 1px, transparent 2px);
+  background-size: 15px 4px, 15px 4px;
+  background-position: 0 0, 7.5px 0;
+  background-repeat: repeat-x;
+}
+
+/* Navigation with Animated Steam */
+nav {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
 nav ul {
   list-style-type: none;
-  margin: 1rem 0;
+  margin: 0;
   padding: 0;
   display: flex;
   border: 3px solid var(--brass-medium);
   background: linear-gradient(to bottom, var(--brass-light), var(--brass-dark));
   border-radius: 5px;
   box-shadow: 0 4px 8px var(--shadow);
+  position: relative;
+  z-index: 1;
+}
+
+/* Add pipe connectors to navigation */
+nav::before, nav::after {
+  content: "";
+  position: absolute;
+  height: 30px;
+  width: 20px;
+  top: -15px;
+  background-color: var(--brass-medium);
+  border: 3px solid var(--brass-dark);
+  z-index: 0;
+}
+
+nav::before {
+  left: 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+nav::after {
+  right: 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+/* Add steam vents to navigation */
+nav ul::before, nav ul::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 10px;
+  height: 3px;
+  background-color: var(--aged-paper-dark);
+  border-radius: 2px;
+  box-shadow: 0 0 5px var(--shadow);
+  z-index: 2;
+}
+
+nav ul::before {
+  left: 25px;
+}
+
+nav ul::after {
+  right: 25px;
+}
+
+/* Steam animation from nav vents */
+nav ul::before, nav ul::after {
+  animation: steam-vent 8s infinite;
+}
+
+@keyframes steam-vent {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--shadow);
+    filter: blur(0);
+  }
+  50% {
+    box-shadow:
+      0 -5px 10px var(--steam-white),
+      0 -10px 15px var(--steam-blue);
+    filter: blur(1px);
+  }
 }
 
 nav li {
   display: inline-block;
   margin: 0;
   border-right: 1px solid var(--brass-dark);
+  position: relative;
 }
 
 nav li:last-child {
@@ -78,12 +245,65 @@ nav li a {
   font-weight: bold;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Pressure gauge hover effect for nav items */
+nav li a::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--brass-light);
+  transition: all 0.3s ease;
+  opacity: 0.6;
+  box-shadow: 0 0 3px var(--shadow);
+}
+
+nav li a:hover::before {
+  background-color: var(--gauge-red);
+  box-shadow: 0 0 8px var(--gauge-red);
+  opacity: 1;
 }
 
 nav li a:hover {
   background-color: var(--copper);
   color: white;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Animated pressure wave on nav hover */
+nav li a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 30%, var(--copper-light) 150%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+nav li a:hover::after {
+  opacity: 0.8;
+  animation: pressure-wave 1s ease-out;
+}
+
+@keyframes pressure-wave {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
 }
 
 /* Default list styling that doesn't affect navigation */
@@ -95,6 +315,7 @@ ul:not(nav ul) {
   width: 100%;
 }
 
+/* Item card with pressure gauge */
 ul:not(nav ul) li {
   display: block;
   margin-bottom: 1.5rem;
@@ -111,12 +332,53 @@ ul:not(nav ul) li {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
-ul:not(nav ul) li:before,
-ul:not(nav ul) li:after {
-  display: none;
+/* Add pressure gauge to list items */
+ul:not(nav ul) li::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, white 35%, var(--aged-paper) 40%, var(--brass-dark) 45%, var(--brass-medium) 55%, var(--brass-dark) 60%);
+  box-shadow: 0 4px 8px var(--shadow);
+  border: 2px solid var(--brass-dark);
 }
 
-/* Form Elements */
+/* Add gauge needle */
+ul:not(nav ul) li::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 15 L15 8' stroke='%235c4033' stroke-width='1.5' stroke-linecap='round'/%3E%3Ccircle cx='15' cy='15' r='1.5' fill='%235c4033'/%3E%3C/svg%3E");
+  background-size: contain;
+  transform-origin: center center;
+  animation: gauge-needle 8s ease-in-out infinite alternate;
+}
+
+@keyframes gauge-needle {
+  0% { transform: rotate(-45deg); }
+  25% { transform: rotate(20deg); }
+  50% { transform: rotate(45deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(-30deg); }
+}
+
+/* Add rivets to list items */
+ul:not(nav ul) li {
+  position: relative;
+}
+
+ul:not(nav ul) li:nth-child(odd)::before {
+  animation-delay: 1s;
+}
+
+/* Form Elements with Mechanical Interaction */
 button,
 input[type="submit"] {
   background: linear-gradient(to bottom, var(--brass-light), var(--brass-dark));
@@ -135,10 +397,12 @@ input[type="submit"] {
   transition: all 0.3s ease;
   font-family: 'Courier New', Courier, monospace;
   position: relative;
+  overflow: hidden;
 }
 
-button:before,
-input[type="submit"]:before {
+/* Add mechanical button effects */
+button::before,
+input[type="submit"]::before {
   content: "";
   position: absolute;
   top: 5px;
@@ -147,6 +411,35 @@ input[type="submit"]:before {
   height: 3px;
   background-color: rgba(255,255,255,0.2);
   border-radius: 3px;
+}
+
+/* Mechanical press effect + steam release */
+button::after,
+input[type="submit"]::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.3) 80%,
+    rgba(255,255,255,0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+button:hover::after,
+input[type="submit"]:hover::after {
+  opacity: 0.7;
+  animation: steam-release 1s ease;
+}
+
+@keyframes steam-release {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translateY(-20px); opacity: 0; }
 }
 
 button:hover,
@@ -166,6 +459,19 @@ input[type="submit"]:active {
     0 1px 2px var(--shadow);
 }
 
+/* Add decoration to button corners - rivets */
+button::before,
+input[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  height: 3px;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
 input,
 textarea,
 select {
@@ -183,6 +489,7 @@ select {
   transition: all 0.3s ease;
 }
 
+/* Add mechanical meter effect to inputs */
 input:focus,
 textarea:focus,
 select:focus {
@@ -190,6 +497,110 @@ select:focus {
   box-shadow:
     inset 0 1px 3px var(--shadow),
     0 0 8px rgba(184, 115, 51, 0.5);
+  animation: input-focus 1s ease;
+}
+
+@keyframes input-focus {
+  0% { border-color: var(--brass-medium); }
+  50% { border-color: var(--copper-light); }
+  100% { border-color: var(--copper); }
+}
+
+/* Add tick marks to range inputs */
+/* Cross-browser appearance properties */
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress,
+::-webkit-scrollbar-button:single-button,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Animated Scrollbar Gears */
+::-webkit-scrollbar-button:single-button {
+  background-color: var(--brass-medium);
+  display: block;
+  border: 2px solid var(--brass-dark);
+  height: 15px;
+  width: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235c4033' d='M12 0c-.5 0-1 .5-1 1v2c-1 .1-1.9.4-2.8.7L7 2.3c-.4-.4-1-.4-1.4 0L4.3 3.6c-.4.4-.4 1 0 1.4l1.4 1.4c-.3.9-.6 1.8-.7 2.8H3c-.6 0-1 .4-1 1v1.7c0 .5.4 1 1 1h2c.1.9.4 1.7.7 2.6l-1.5 1.5c-.3.4-.3 1 0 1.4l1.3 1.3c.4.4 1 .4 1.4 0l1.5-1.5c.9.3 1.8.5 2.7.7v2c0 .6.4 1 1 1h1.7c.6 0 1-.4 1-1v-2c.9-.1 1.8-.4 2.6-.7l1.5 1.5c.4.4 1 .4 1.4 0l1.3-1.3c.4-.4.4-1 0-1.4l-1.4-1.5c.3-.8.5-1.7.6-2.6h2.1c.5 0 1-.5 1-1v-1.7c0-.6-.5-1-1-1h-2.1c-.1-.9-.3-1.9-.6-2.8l1.4-1.4c.4-.4.4-1 0-1.4L20 2.3c-.4-.4-1-.4-1.4 0l-1.4 1.4C16.3 3.4 15.4 3.1 14.5 3V1c0-.5-.5-1-1-1h-1.5z M12 7c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+
+/* Range input slider thumb styling with cross-browser compatibility */
+input[type="range"]::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brass-medium);
+  border: 2px solid var(--brass-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 4px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brass-medium);
+  border: 2px solid var(--brass-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 4px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-ms-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brass-medium);
+  border: 2px solid var(--brass-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 4px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+input[type="range"] {
+  height: 10px;
+  background: var(--aged-paper-dark);
+  border-radius: 5px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 9%,
+    var(--brass-dark) 10%
+  );
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--brass-dark);
+  border-radius: 2px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked::before {
+  opacity: 1;
+  left: 12px;
+  animation: toggle-check 0.3s ease;
+}
+
+@keyframes toggle-check {
+  0% { transform: translateX(-10px); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translateX(0); opacity: 1; }
 }
 
 label {
@@ -203,6 +614,20 @@ label {
   letter-spacing: 1px;
 }
 
+/* Add decorative gear to labels */
+label::after {
+  content: "•";
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--copper);
+  animation: rotate-dot 4s linear infinite;
+}
+
+@keyframes rotate-dot {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Error Styles */
 .error {
   color: #b22222;
@@ -214,6 +639,12 @@ input.error,
 textarea.error {
   border: 2px solid #b22222;
   background-color: rgba(178, 34, 34, 0.05);
+  animation: error-pulse 2s infinite;
+}
+
+@keyframes error-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(178, 34, 34, 0.5); }
+  50% { box-shadow: 0 0 10px rgba(178, 34, 34, 0.8); }
 }
 
 .form-error {
@@ -225,6 +656,25 @@ textarea.error {
   margin: 1rem 0;
   display: inline-block;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+/* Add warning lights to errors */
+.form-error::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #b22222;
+  animation: warning-flash 1s infinite;
+}
+
+@keyframes warning-flash {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.5; }
 }
 
 .form-error ul {
@@ -257,7 +707,7 @@ textarea.error {
   margin: 0 0.5rem;
 }
 
-/* Content Panels */
+/* Content Panels with Steam Effects */
 .panel {
   background-color: rgba(255, 255, 255, 0.5);
   border: 3px solid var(--brass-medium);
@@ -268,61 +718,94 @@ textarea.error {
     inset 0 0 10px rgba(255,255,255,0.8),
     0 4px 8px var(--shadow);
   position: relative;
+  overflow: hidden;
 }
 
-.panel:before {
+/* Add animated steam effect to panel */
+.panel::before {
   content: "";
   position: absolute;
-  top: -12px;
-  left: 20px;
-  right: 20px;
-  height: 3px;
-  background-color: var(--brass-light);
-  border-radius: 3px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 30%, var(--steam-white) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, var(--steam-blue) 0%, transparent 20%);
+  opacity: 0;
+  filter: blur(5px);
+  animation: panel-steam 20s infinite alternate ease-in-out;
+  pointer-events: none;
 }
 
-.panel:after {
+@keyframes panel-steam {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.1; }
+}
+
+/* Add decorative brass pipe to panel */
+.panel::after {
   content: "";
   position: absolute;
   bottom: -12px;
   left: 20px;
   right: 20px;
-  height: 3px;
-  background-color: var(--brass-dark);
+  height: 8px;
+  background: linear-gradient(to right,
+    var(--brass-dark) 0%, var(--brass-medium) 20%,
+    var(--brass-light) 40%, var(--brass-medium) 60%,
+    var(--brass-dark) 80%, var(--brass-dark) 100%);
   border-radius: 3px;
 }
 
-/* Links styling */
+/* Add rivets to panel edges */
+.panel:before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  height: 0;
+  border-top: 2px dotted var(--brass-dark);
+  opacity: 0.4;
+}
+
+/* Links styling with gear icon */
 a {
   color: var(--copper);
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
+  padding-right: 16px;
 }
 
 a:hover {
   color: var(--brass-dark);
 }
 
+/* Add gear icon to links */
 a:not(h1 > a):not(nav li a):after {
-  content: "";
+  content: "⚙";
   position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--copper);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease;
+  right: 0;
+  top: 0;
+  font-size: 0.8em;
+  opacity: 0.7;
+  transform-origin: center center;
+  transition: all 0.3s ease;
 }
 
 a:not(h1 > a):not(nav li a):hover:after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
+  opacity: 1;
+  animation: link-gear-spin 2s linear infinite;
 }
 
-/* Tables */
+@keyframes link-gear-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tables with animated pistons */
 table {
   width: 100%;
   border-collapse: separate;
@@ -332,6 +815,39 @@ table {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px var(--shadow);
+  position: relative;
+}
+
+/* Add piston animation to table */
+table::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 8px;
+  background-color: var(--brass-dark);
+  z-index: 1;
+}
+
+table::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 20px;
+  height: 10px;
+  margin-left: -10px;
+  background-color: var(--copper);
+  border: 2px solid var(--brass-dark);
+  border-radius: 3px;
+  z-index: 2;
+  animation: table-piston 4s infinite ease-in-out;
+}
+
+@keyframes table-piston {
+  0%, 100% { transform: translateY(-5px); }
+  50% { transform: translateY(5px); }
 }
 
 th {
@@ -342,6 +858,20 @@ th {
   font-weight: bold;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
   border-bottom: 2px solid var(--brass-dark);
+  position: relative;
+}
+
+/* Add rivets to table headers */
+th::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--brass-dark);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
 }
 
 td {
@@ -358,10 +888,15 @@ tr:nth-child(even) td {
   background-color: rgba(214, 177, 96, 0.1);
 }
 
-/* Add gears to corners of the page */
-body:before,
-body:after {
-  content: "";
+/* Add hover effect to table rows */
+tr:hover td {
+  background-color: rgba(184, 115, 51, 0.1);
+  transform: scale(1.01);
+  transition: all 0.3s ease;
+}
+
+/* Animated Gears on Page Corners */
+.corner-gear {
   position: fixed;
   width: 100px;
   height: 100px;
@@ -370,15 +905,178 @@ body:after {
   z-index: -1;
 }
 
-body:before {
+.corner-gear-tl {
   top: 20px;
   left: 20px;
+  animation: gear-spin 30s linear infinite;
 }
 
-body:after {
+.corner-gear-tr {
+  top: 20px;
+  right: 20px;
+  animation: gear-spin 25s linear infinite reverse;
+}
+
+.corner-gear-bl {
+  bottom: 20px;
+  left: 20px;
+  animation: gear-spin 35s linear infinite reverse;
+}
+
+.corner-gear-br {
   bottom: 20px;
   right: 20px;
-  transform: rotate(45deg);
+  animation: gear-spin 40s linear infinite;
+}
+
+/* Add a second, smaller gear to each corner */
+.corner-gear::after {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23b87333' d='M50 0c-1.7 0-3 1.3-3 3v7.9c-2.6.5-5.1 1.2-7.5 2.2l-5.6-5.6c-1.2-1.2-3.1-1.2-4.2 0L21.5 15.7c-1.2 1.2-1.2 3.1 0 4.2l5.6 5.6c-1 2.4-1.7 4.9-2.2 7.5H17c-1.7 0-3 1.3-3 3v12.1c0 1.7 1.3 3 3 3h7.9c.5 2.6 1.2 5.1 2.2 7.5l-5.6 5.6c-1.2 1.2-1.2 3.1 0 4.2l8.5 8.5c1.2 1.2 3.1 1.2 4.2 0l5.6-5.6c2.4 1 4.9 1.7 7.5 2.2V83c0 1.7 1.3 3 3 3h12.1c1.7 0 3-1.3 3-3v-7.9c2.6-.5 5.1-1.2 7.5-2.2l5.6 5.6c1.2 1.2 3.1 1.2 4.2 0l8.5-8.5c1.2-1.2 1.2-3.1 0-4.2l-5.6-5.6c1-2.4 1.7-4.9 2.2-7.5H83c1.7 0 3-1.3 3-3V37.9c0-1.7-1.3-3-3-3h-7.9c-.5-2.6-1.2-5.1-2.2-7.5l5.6-5.6c1.2-1.2 1.2-3.1 0-4.2l-8.5-8.5c-1.2-1.2-3.1-1.2-4.2 0l-5.6 5.6c-2.4-1-4.9-1.7-7.5-2.2V3c0-1.7-1.3-3-3-3H50z'/%3E%3C/svg%3E");
+  background-size: contain;
+  opacity: 0.2;
+}
+
+.corner-gear-tl::after {
+  top: 60px;
+  left: 60px;
+  animation: gear-spin 20s linear infinite reverse;
+}
+
+.corner-gear-tr::after {
+  top: 60px;
+  right: 60px;
+  animation: gear-spin 18s linear infinite;
+}
+
+.corner-gear-bl::after {
+  bottom: 60px;
+  left: 60px;
+  animation: gear-spin 22s linear infinite;
+}
+
+.corner-gear-br::after {
+  bottom: 60px;
+  right: 60px;
+  animation: gear-spin 24s linear infinite reverse;
+}
+
+/* Animated Pipe Border */
+.pipe-border {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pipe-top, .pipe-bottom {
+  height: 12px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right,
+    var(--brass-dark) 0%, var(--brass-medium) 10%,
+    var(--brass-light) 20%, var(--brass-medium) 30%,
+    var(--brass-dark) 40%, var(--brass-medium) 50%,
+    var(--brass-light) 60%, var(--brass-medium) 70%,
+    var(--brass-dark) 80%, var(--brass-medium) 90%,
+    var(--brass-dark) 100%);
+}
+
+.pipe-top {
+  top: 0;
+  border-bottom: 2px solid var(--brass-dark);
+}
+
+.pipe-bottom {
+  bottom: 0;
+  border-top: 2px solid var(--brass-dark);
+}
+
+.pipe-left, .pipe-right {
+  width: 12px;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom,
+    var(--brass-dark) 0%, var(--brass-medium) 10%,
+    var(--brass-light) 20%, var(--brass-medium) 30%,
+    var(--brass-dark) 40%, var(--brass-medium) 50%,
+    var(--brass-light) 60%, var(--brass-medium) 70%,
+    var(--brass-dark) 80%, var(--brass-medium) 90%,
+    var(--brass-dark) 100%);
+}
+
+.pipe-left {
+  left: 0;
+  border-right: 2px solid var(--brass-dark);
+}
+
+.pipe-right {
+  right: 0;
+  border-left: 2px solid var(--brass-dark);
+}
+
+/* Add steam vents to pipes */
+.steam-vent {
+  position: fixed;
+  width: 10px;
+  height: 4px;
+  background-color: var(--aged-paper-dark);
+  border: 1px solid var(--brass-dark);
+  z-index: 1;
+}
+
+.vent-top-1 { top: 12px; left: 20%; }
+.vent-top-2 { top: 12px; right: 20%; }
+.vent-bottom-1 { bottom: 12px; left: 30%; }
+.vent-bottom-2 { bottom: 12px; right: 30%; }
+.vent-left-1 { left: 12px; top: 20%; }
+.vent-left-2 { left: 12px; bottom: 20%; }
+.vent-right-1 { right: 12px; top: 30%; }
+.vent-right-2 { right: 12px; bottom: 30%; }
+
+/* Steam vent animation */
+.steam-vent::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--steam-white) 0%, transparent 70%);
+  filter: blur(2px);
+  opacity: 0;
+  animation: steam-pulse 8s infinite;
+}
+
+.vent-top-1::after, .vent-top-2::after {
+  top: -20px;
+  left: -5px;
+}
+
+.vent-bottom-1::after, .vent-bottom-2::after {
+  bottom: -20px;
+  left: -5px;
+}
+
+.vent-left-1::after, .vent-left-2::after {
+  left: -20px;
+  top: -8px;
+}
+
+.vent-right-1::after, .vent-right-2::after {
+  right: -20px;
+  top: -8px;
+}
+
+/* Alternate steam vent timings */
+.vent-top-1::after, .vent-bottom-2::after, .vent-left-1::after, .vent-right-2::after {
+  animation-delay: 4s;
+}
+
+@keyframes steam-pulse {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 0.5; transform: scale(1.2); }
 }
 
 /* Scrollbar styling */
@@ -399,9 +1097,36 @@ body:after {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--copper);
+  animation: scroll-hover 1s infinite;
 }
 
-/* Code blocks */
+@keyframes scroll-hover {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Animated Scrollbar Gears */
+::-webkit-scrollbar-button:single-button {
+  background-color: var(--brass-medium);
+  display: block;
+  border: 2px solid var(--brass-dark);
+  height: 15px;
+  width: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235c4033' d='M12 0c-.5 0-1 .5-1 1v2c-1 .1-1.9.4-2.8.7L7 2.3c-.4-.4-1-.4-1.4 0L4.3 3.6c-.4.4-.4 1 0 1.4l1.4 1.4c-.3.9-.6 1.8-.7 2.8H3c-.6 0-1 .4-1 1v1.7c0 .5.4 1 1 1h2c.1.9.4 1.7.7 2.6l-1.5 1.5c-.3.4-.3 1 0 1.4l1.3 1.3c.4.4 1 .4 1.4 0l1.5-1.5c.9.3 1.8.5 2.7.7v2c0 .6.4 1 1 1h1.7c.6 0 1-.4 1-1v-2c.9-.1 1.8-.4 2.6-.7l1.5 1.5c.4.4 1 .4 1.4 0l1.3-1.3c.4-.4.4-1 0-1.4l-1.4-1.5c.3-.8.5-1.7.6-2.6h2.1c.5 0 1-.5 1-1v-1.7c0-.6-.5-1-1-1h-2.1c-.1-.9-.3-1.9-.6-2.8l1.4-1.4c.4-.4.4-1 0-1.4L20 2.3c-.4-.4-1-.4-1.4 0l-1.4 1.4C16.3 3.4 15.4 3.1 14.5 3V1c0-.5-.5-1-1-1h-1.5z M12 7c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+
+::-webkit-scrollbar-button:single-button:hover {
+  background-color: var(--copper);
+}
+
+::-webkit-scrollbar-button:single-button:active {
+  background-color: var(--copper-dark);
+}
+
+/* Code blocks with animated border */
 pre, code {
   background-color: rgba(92, 64, 51, 0.1);
   border: 1px solid var(--leather-medium);
@@ -417,7 +1142,7 @@ pre {
   position: relative;
 }
 
-pre:before {
+pre::before {
   content: "";
   position: absolute;
   top: 0;
@@ -427,4 +1152,330 @@ pre:before {
   background: linear-gradient(to right, var(--brass-light), var(--brass-dark));
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  animation: code-border-pulse 4s infinite alternate;
 }
+
+@keyframes code-border-pulse {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Main Content */
+main {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+/* Add pipe elements */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23b5965a' stroke-width='8' d='M10,50 L90,50'/%3E%3Ccircle cx='10' cy='50' r='10' fill='%23b5965a'/%3E%3Ccircle cx='90' cy='50' r='10' fill='%23b5965a'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23b87333' stroke-width='6' d='M20,20 L180,20 L180,180 L20,180 Z'/%3E%3Ccircle cx='20' cy='20' r='8' fill='%23b87333'/%3E%3Ccircle cx='180' cy='20' r='8' fill='%23b87333'/%3E%3Ccircle cx='20' cy='180' r='8' fill='%23b87333'/%3E%3Ccircle cx='180' cy='180' r='8' fill='%23b87333'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 100px, 200px;
+}
+
+/* Replace horizontal movement with rotation for background gears */
+@keyframes gear-background-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Update background to use individual gear elements that rotate */
+.background-gear {
+  position: fixed;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%239a7940' d='M50 0c-1.7 0-3 1.3-3 3v7.9c-2.6.5-5.1 1.2-7.5 2.2l-5.6-5.6c-1.2-1.2-3.1-1.2-4.2 0L21.5 15.7c-1.2 1.2-1.2 3.1 0 4.2l5.6 5.6c-1 2.4-1.7 4.9-2.2 7.5H17c-1.7 0-3 1.3-3 3v12.1c0 1.7 1.3 3 3 3h7.9c.5 2.6 1.2 5.1 2.2 7.5l-5.6 5.6c-1.2 1.2-1.2 3.1 0 4.2l8.5 8.5c1.2 1.2 3.1 1.2 4.2 0l5.6-5.6c2.4 1 4.9 1.7 7.5 2.2V83c0 1.7 1.3 3 3 3h12.1c1.7 0 3-1.3 3-3v-7.9c2.6-.5 5.1-1.2 7.5-2.2l5.6 5.6c1.2 1.2 3.1 1.2 4.2 0l8.5-8.5c1.2-1.2 1.2-3.1 0-4.2l-5.6-5.6c1-2.4 1.7-4.9 2.2-7.5H83c1.7 0 3-1.3 3-3V37.9c0-1.7-1.3-3-3-3h-7.9c-.5-2.6-1.2-5.1-2.2-7.5l5.6-5.6c1.2-1.2 1.2-3.1 0-4.2l-8.5-8.5c-1.2-1.2-3.1-1.2-4.2 0l-5.6 5.6c-2.4-1-4.9-1.7-7.5-2.2V3c0-1.7-1.3-3-3-3H50zm6 33c6.1 0 11 4.9 11 11s-4.9 11-11 11-11-4.9-11-11 4.9-11 11-11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -5;
+  opacity: 0.1;
+  transform-origin: center center;
+}
+
+/* Create multiple background gears with different sizes and rotation speeds */
+.bg-gear-1 {
+  width: 100px;
+  height: 100px;
+  top: 15%;
+  left: 10%;
+  animation: gear-background-rotate 40s linear infinite;
+}
+
+.bg-gear-2 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  left: 25%;
+  animation: gear-background-rotate 60s linear infinite reverse;
+}
+
+.bg-gear-3 {
+  width: 80px;
+  height: 80px;
+  top: 70%;
+  left: 15%;
+  animation: gear-background-rotate 30s linear infinite;
+}
+
+.bg-gear-4 {
+  width: 120px;
+  height: 120px;
+  top: 25%;
+  right: 15%;
+  animation: gear-background-rotate 50s linear infinite reverse;
+}
+
+.bg-gear-5 {
+  width: 90px;
+  height: 90px;
+  top: 60%;
+  right: 20%;
+  animation: gear-background-rotate 35s linear infinite;
+}
+
+.bg-gear-6 {
+  width: 60px;
+  height: 60px;
+  top: 80%;
+  right: 30%;
+  animation: gear-background-rotate 25s linear infinite reverse;
+}
+
+/* Document setup for HTML */
+html {
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Add these HTML elements to make all animations work */
+body::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Add corner gears and pipe borders when the document loads */
+body {
+  position: relative;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+  }
+
+  nav li {
+    border-right: none;
+    border-bottom: 1px solid var(--brass-dark);
+  }
+
+  nav li:last-child {
+    border-bottom: none;
+  }
+
+  .corner-gear {
+    width: 60px;
+    height: 60px;
+  }
+
+  .corner-gear::after {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Add these elements dynamically using the HTML */
+.corner-gear-tl, .corner-gear-tr, .corner-gear-bl, .corner-gear-br,
+.pipe-top, .pipe-bottom, .pipe-left, .pipe-right,
+.vent-top-1, .vent-top-2, .vent-bottom-1, .vent-bottom-2,
+.vent-left-1, .vent-left-2, .vent-right-1, .vent-right-2,
+.bg-gear-1, .bg-gear-2, .bg-gear-3, .bg-gear-4, .bg-gear-5, .bg-gear-6 {
+  position: fixed;
+  z-index: -1;
+}
+
+/* HTML to add to your document for rotating background gears */
+/*
+<div class="background-gear bg-gear-1"></div>
+<div class="background-gear bg-gear-2"></div>
+<div class="background-gear bg-gear-3"></div>
+<div class="background-gear bg-gear-4"></div>
+<div class="background-gear bg-gear-5"></div>
+<div class="background-gear bg-gear-6"></div>
+*/
+
+/* Keyframes for all animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Progress bar styling */
+/* Progress bar styling with browser compatibility */
+progress {
+  width: 100%;
+  height: 20px;
+  border: 2px solid var(--brass-dark);
+  border-radius: 5px;
+  background-color: var(--aged-paper);
+  position: relative;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--aged-paper);
+  border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(to right, var(--brass-medium), var(--copper));
+  border-radius: 3px;
+  background-size: 30px 30px;
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .15) 50%,
+    rgba(255, 255, 255, .15) 75%,
+    transparent 75%,
+    transparent
+  );
+  animation: progress-animate 1s linear infinite;
+}
+
+progress::-moz-progress-bar {
+  background: linear-gradient(to right, var(--brass-medium), var(--copper));
+  border-radius: 3px;
+  background-size: 30px 30px;
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .15) 50%,
+    rgba(255, 255, 255, .15) 75%,
+    transparent 75%,
+    transparent
+  );
+  animation: progress-animate 1s linear infinite;
+}
+
+progress::-ms-fill {
+  background: linear-gradient(to right, var(--brass-medium), var(--copper));
+  border-radius: 3px;
+  background-size: 30px 30px;
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, .15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .15) 50%,
+    rgba(255, 255, 255, .15) 75%,
+    transparent 75%,
+    transparent
+  );
+  animation: progress-animate 1s linear infinite;
+}
+
+@keyframes progress-animate {
+  0% { background-position: 0 0; }
+  100% { background-position: 30px 0; }
+}
+
+/* Tooltip styling */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  padding: 10px;
+  background: var(--aged-paper);
+  border: 2px solid var(--brass-medium);
+  border-radius: 5px;
+  color: var(--leather-dark);
+  font-size: 0.8rem;
+  z-index: 100;
+  box-shadow: 0 4px 8px var(--shadow);
+  text-align: center;
+  animation: tooltip-appear 0.3s ease-out;
+}
+
+[data-tooltip]:hover::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: var(--brass-medium) transparent transparent;
+}
+
+@keyframes tooltip-appear {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Add JavaScript for dynamic elements */
+/*
+// Add this script to your HTML to dynamically create the gear elements
+document.addEventListener('DOMContentLoaded', function() {
+  // Create background gears
+  for (let i = 1; i <= 6; i++) {
+    const gear = document.createElement('div');
+    gear.className = `background-gear bg-gear-${i}`;
+    document.body.appendChild(gear);
+  }
+
+  // Create corner gears
+  const cornerPositions = ['tl', 'tr', 'bl', 'br'];
+  cornerPositions.forEach(pos => {
+    const gear = document.createElement('div');
+    gear.className = `corner-gear corner-gear-${pos}`;
+    document.body.appendChild(gear);
+  });
+
+  // Create pipe borders
+  const pipeBorders = ['top', 'bottom', 'left', 'right'];
+  pipeBorders.forEach(pos => {
+    const pipe = document.createElement('div');
+    pipe.className = `pipe-border pipe-${pos}`;
+    document.body.appendChild(pipe);
+  });
+
+  // Create steam vents
+  const vents = [
+    'top-1', 'top-2', 'bottom-1', 'bottom-2',
+    'left-1', 'left-2', 'right-1', 'right-2'
+  ];
+  vents.forEach(pos => {
+    const vent = document.createElement('div');
+    vent.className = `steam-vent vent-${pos}`;
+    document.body.appendChild(vent);
+  });
+});
+*/
