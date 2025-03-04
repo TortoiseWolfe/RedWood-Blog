@@ -1,0 +1,670 @@
+/* ============================= */
+/*   Atomic Punk (Readable) CSS  */
+/* ============================= */
+
+/* 1) Color Variables & Theme Setup */
+:root {
+  --atomic-bg: #1a1a1a;          /* Deep, dark background */
+  --atomic-text: #fafafa;        /* Light text for better contrast */
+  --atomic-orange: #ff8c00;      /* Vibrant atomic orange */
+  --atomic-blue: #00bfff;        /* Electric blue accent */
+  --atomic-green: #00ff7f;       /* Neon green accent */
+  --atomic-silver: #c0c0c0;      /* Metallic silver tone */
+  --atomic-light: #f7f7f7;       /* Light accent for gradients */
+  --atomic-shadow: rgba(0, 0, 0, 0.7);
+  --atomic-glow: rgba(255, 140, 0, 0.5);
+  --nuclear-white: rgba(255, 255, 255, 0.8);
+  --nuclear-blue: rgba(0, 191, 255, 0.6);
+  --gauge-red: #ff4500;
+}
+
+/* 2) Body - Use a subdued background in ::before for readability */
+body {
+  position: relative;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--atomic-text);
+  background-color: var(--atomic-bg);
+  overflow-x: hidden;
+  line-height: 1.5;
+  padding: 1rem;
+  text-shadow: 1px 1px 2px var(--atomic-glow);
+}
+
+/* The busy background pattern is now in body::before with low opacity */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  /* Use the old pattern, but bigger & fainter */
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' stroke='%23ff8c00' stroke-width='5' fill='none'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23ff8c00'/%3E%3Cline x1='50' y1='10' x2='50' y2='90' stroke='%23ff8c00' stroke-width='5'/%3E%3Cline x1='10' y1='50' x2='90' y2='50' stroke='%23ff8c00' stroke-width='5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px; /* Enlarge the tile so it's less busy */
+  opacity: 0.07;               /* Lower this if you want it even fainter */
+}
+
+/* 3) Animate a subtle "atomic glow" behind everything */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, var(--nuclear-white) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, var(--nuclear-blue) 0%, transparent 40%);
+  opacity: 0.2;
+  z-index: 999;
+  filter: blur(8px);
+  animation: atomic-glow 120s infinite alternate ease-in-out;
+}
+
+@keyframes atomic-glow {
+  0% {
+    background-position: 0% 0%, 100% 100%;
+    opacity: 0.1;
+  }
+  25% {
+    background-position: 25% 10%, 75% 90%;
+    opacity: 0.15;
+  }
+  50% {
+    background-position: 50% 20%, 50% 80%;
+    opacity: 0.2;
+  }
+  75% {
+    background-position: 25% 30%, 75% 70%;
+    opacity: 0.15;
+  }
+  100% {
+    background-position: 0% 40%, 100% 60%;
+    opacity: 0.1;
+  }
+}
+
+/* 4) Main Content Panel - translucent behind text for clarity */
+main {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+/* 5) Headings with atomic details */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  color: var(--atomic-text);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--atomic-orange);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  text-shadow: 1px 1px 2px var(--atomic-glow);
+  position: relative;
+}
+
+h1::before, h2::before, h3::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='10' fill='%23ff8c00'/%3E%3Cpath d='M10,50 A40,40 0 0,1 90,50' stroke='%23ff8c00' stroke-width='3' fill='none'/%3E%3Cpath d='M10,50 A40,40 0 0,0 90,50' stroke='%23ff8c00' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+  background-size: contain;
+  animation: orbit-spin 20s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes orbit-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+h1 > a {
+  text-decoration: none;
+  color: var(--atomic-text);
+  transition: color 0.3s ease;
+}
+
+h1 > a:hover {
+  color: var(--atomic-blue);
+  text-shadow: 0 0 5px var(--atomic-orange);
+}
+
+h1::after, h2::after, h3::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+  width: 100%;
+  height: 4px;
+  background-image:
+    radial-gradient(circle, var(--atomic-silver) 1px, transparent 2px),
+    radial-gradient(circle, var(--atomic-orange) 1px, transparent 2px);
+  background-size: 15px 4px, 15px 4px;
+  background-position: 0 0, 7.5px 0;
+  background-repeat: repeat-x;
+}
+
+/* 6) Navigation with Atomic Effects */
+nav {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  border: 3px solid var(--atomic-orange);
+  background: linear-gradient(to bottom, var(--atomic-light), var(--atomic-bg));
+  border-radius: 5px;
+  box-shadow: 0 4px 8px var(--atomic-shadow);
+  position: relative;
+  z-index: 1;
+}
+
+nav::before, nav::after {
+  content: "";
+  position: absolute;
+  height: 30px;
+  width: 20px;
+  top: -15px;
+  background-color: var(--atomic-orange);
+  border: 3px solid var(--atomic-silver);
+  z-index: 0;
+}
+
+nav::before {
+  left: 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+nav::after {
+  right: 20px;
+  border-radius: 5px 5px 0 0;
+}
+
+nav ul::before, nav ul::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 10px;
+  height: 3px;
+  background-color: var(--atomic-silver);
+  border-radius: 2px;
+  box-shadow: 0 0 5px var(--atomic-shadow);
+  z-index: 2;
+  animation: atomic-vent 8s infinite;
+}
+
+nav ul::before {
+  left: 25px;
+}
+
+nav ul::after {
+  right: 25px;
+}
+
+@keyframes atomic-vent {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--atomic-shadow);
+    filter: blur(0);
+  }
+  50% {
+    box-shadow:
+      0 -5px 10px var(--nuclear-white),
+      0 -10px 15px var(--nuclear-blue);
+    filter: blur(1px);
+  }
+}
+
+nav li {
+  display: inline-block;
+  margin: 0;
+  border-right: 1px solid var(--atomic-silver);
+  position: relative;
+}
+
+nav li:last-child {
+  border-right: none;
+}
+
+nav li a {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  color: var(--atomic-bg);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px var(--atomic-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+nav li a::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--atomic-silver);
+  transition: all 0.3s ease;
+  opacity: 0.6;
+  box-shadow: 0 0 3px var(--atomic-shadow);
+}
+
+nav li a:hover::before {
+  background-color: var(--gauge-red);
+  box-shadow: 0 0 8px var(--gauge-red);
+  opacity: 1;
+}
+
+nav li a:hover {
+  background-color: var(--atomic-blue);
+  color: var(--atomic-light);
+  text-shadow: 1px 1px 2px var(--atomic-shadow);
+}
+
+nav li a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 30%, var(--atomic-orange) 150%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+nav li a:hover::after {
+  opacity: 0.8;
+  animation: pressure-wave 1s ease-out;
+}
+
+@keyframes pressure-wave {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* 7) Default lists (non-nav) */
+ul:not(nav ul) {
+  list-style-type: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
+/* 8) Item cards with atomic gauge */
+ul:not(nav ul) li {
+  display: block;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(to bottom, var(--atomic-light), var(--atomic-bg));
+  border: 3px solid var(--atomic-silver);
+  border-radius: 8px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  color: var(--atomic-text);
+  text-shadow: 1px 1px 1px var(--atomic-shadow);
+}
+
+ul:not(nav ul) li::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, white 35%, var(--atomic-light) 40%, var(--atomic-silver) 45%, var(--atomic-orange) 55%, var(--atomic-silver) 60%);
+  box-shadow: 0 4px 8px var(--atomic-shadow);
+  border: 2px solid var(--atomic-silver);
+}
+
+ul:not(nav ul) li::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 15 L15 8' stroke='%23000' stroke-width='1.5' stroke-linecap='round'/%3E%3Ccircle cx='15' cy='15' r='1.5' fill='%23000'/%3E%3C/svg%3E");
+  background-size: contain;
+  transform-origin: center center;
+  animation: gauge-needle 8s ease-in-out infinite alternate;
+}
+
+@keyframes gauge-needle {
+  0% { transform: rotate(-45deg); }
+  25% { transform: rotate(20deg); }
+  50% { transform: rotate(45deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(-30deg); }
+}
+
+ul:not(nav ul) li {
+  position: relative;
+}
+
+ul:not(nav ul) li:nth-child(odd)::before {
+  animation-delay: 1s;
+}
+
+/* 9) Form Elements & Buttons */
+button,
+input[type="submit"] {
+  background: linear-gradient(to bottom, var(--atomic-light), var(--atomic-bg));
+  border: 2px solid var(--atomic-silver);
+  color: var(--atomic-text);
+  padding: 0.75rem 1.5rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 2px 4px var(--atomic-shadow);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before,
+input[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  height: 3px;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
+button::after,
+input[type="submit"]::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.3) 80%,
+    rgba(255,255,255,0.7) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+button:hover::after,
+input[type="submit"]:hover::after {
+  opacity: 0.7;
+  animation: atomic-release 1s ease;
+}
+
+@keyframes atomic-release {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background: linear-gradient(to bottom, var(--atomic-bg), var(--atomic-light));
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 4px 8px var(--atomic-shadow);
+}
+
+button:active,
+input[type="submit"]:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 1px 2px var(--atomic-shadow);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: var(--atomic-bg);
+  border: 2px solid var(--atomic-silver);
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--atomic-text);
+  box-shadow:
+    inset 0 1px 3px var(--atomic-shadow),
+    0 1px 0 rgba(255,255,255,0.8);
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--atomic-blue);
+  box-shadow:
+    inset 0 1px 3px var(--atomic-shadow),
+    0 0 8px var(--atomic-blue);
+  animation: input-focus 1s ease;
+}
+
+@keyframes input-focus {
+  0% { border-color: var(--atomic-silver); }
+  50% { border-color: var(--atomic-blue); }
+  100% { border-color: var(--atomic-blue); }
+}
+
+/* Cross-browser resets */
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress,
+::-webkit-scrollbar-button:single-button,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* 10) Scrollbar & Code Blocks */
+::-webkit-scrollbar-button:single-button {
+  background-color: var(--atomic-silver);
+  display: block;
+  border: 2px solid var(--atomic-silver);
+  height: 15px;
+  width: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 0c-.5 0-1 .5-1 1v2c-1 .1-1.9.4-2.8.7L7 2.3c-.4-.4-1-.4-1.4 0L4.3 3.6c-.4.4-.4 1 0 1.4l1.4 1.4c-.3.9-.6 1.8-.7 2.8H3c-.6 0-1 .4-1 1v1.7c0 .5.4 1 1 1h2c.1.9.4 1.7.7 2.6l-1.5 1.5c-.3.4-.3 1 0 1.4l1.3 1.3c.4.4 1 .4 1.4 0l1.5-1.5c.9.3 1.8.5 2.7.7v2c0 .6.4 1 1 1h1.7c.6 0 1-.4 1-1v-2c.9-.1 1.8-.4 2.6-.7l1.5 1.5c.4.4 1 .4 1.4 0l1.3-1.3c.4-.4.4-1 0-1.4l-1.4-1.5c.3-.8.5-1.7.6-2.6h2.1c.5 0 1-.5 1-1v-1.7c0-.6-.5-1-1-1h-2.1c-.1-.9-.3-1.9-.6-2.8l1.4-1.4c.4-.4.4-1 0-1.4L20 2.3c-.4-.4-1-.4-1.4 0l-1.4 1.4C16.3 3.4 15.4 3.1 14.5 3V1c0-.5-.5-1-1-1h-1.5z M12 7c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+
+::-webkit-scrollbar-button:single-button:hover {
+  background-color: var(--atomic-blue);
+}
+
+::-webkit-scrollbar-button:single-button:active {
+  background-color: var(--atomic-green);
+}
+
+pre, code {
+  background-color: rgba(60, 60, 60, 0.1);
+  border: 1px solid var(--atomic-silver);
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0.2em 0.4em;
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to right, var(--atomic-silver), var(--atomic-blue));
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  animation: code-border-pulse 4s infinite alternate;
+}
+
+@keyframes code-border-pulse {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* 11) Rotating background atomic elements (optional) */
+.background-gear {
+  position: fixed;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='10' fill='%23ff8c00'/%3E%3Cpath d='M10,50 A40,40 0 0,1 90,50' stroke='%23ff8c00' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -5;
+  opacity: 0.1;
+  transform-origin: center center;
+}
+
+@keyframes gear-background-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.bg-gear-1 {
+  width: 100px;
+  height: 100px;
+  top: 15%;
+  left: 10%;
+  animation: gear-background-rotate 40s linear infinite;
+}
+
+.bg-gear-2 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  left: 25%;
+  animation: gear-background-rotate 60s linear infinite reverse;
+}
+
+.bg-gear-3 {
+  width: 80px;
+  height: 80px;
+  top: 70%;
+  left: 15%;
+  animation: gear-background-rotate 30s linear infinite;
+}
+
+.bg-gear-4 {
+  width: 120px;
+  height: 120px;
+  top: 25%;
+  right: 15%;
+  animation: gear-background-rotate 50s linear infinite reverse;
+}
+
+.bg-gear-5 {
+  width: 90px;
+  height: 90px;
+  top: 60%;
+  right: 20%;
+  animation: gear-background-rotate 35s linear infinite;
+}
+
+.bg-gear-6 {
+  width: 60px;
+  height: 60px;
+  top: 80%;
+  right: 30%;
+  animation: gear-background-rotate 25s linear infinite reverse;
+}
+
+/* 12) Responsive Adjustments */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+  }
+  nav li {
+    border-right: none;
+    border-bottom: 1px solid var(--atomic-silver);
+  }
+  nav li:last-child {
+    border-bottom: none;
+  }
+}
+
+/* If you want corner gears or pipe borders, define them similarly:
+.corner-gear-tl, .corner-gear-tr, .corner-gear-bl, .corner-gear-br,
+.pipe-top, .pipe-bottom, .pipe-left, .pipe-right,
+.vent-top-1, .vent-top-2, .vent-bottom-1, .vent-bottom-2,
+.vent-left-1, .vent-left-2, .vent-right-1, .vent-right-2,
+.bg-gear-1, .bg-gear-2, .bg-gear-3, .bg-gear-4, .bg-gear-5, .bg-gear-6 {
+  position: fixed;
+  z-index: -1;
+}
+*/
+
+/* 13) Universal Link Hover - outside nav & headings */
+a:not(nav li a):not(h1 > a) {
+  color: var(--atomic-blue);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+a:not(nav li a):not(h1 > a):hover {
+  color: var(--atomic-orange);
+  text-shadow: 0 0 4px var(--atomic-orange);
+  text-decoration: underline;
+}
+
+/* 14) Example JavaScript snippet for dynamic creation (optional)
+document.addEventListener('DOMContentLoaded', function() {
+  // Create background atomic elements
+  for (let i = 1; i <= 6; i++) {
+    const gear = document.createElement('div');
+    gear.className = `background-gear bg-gear-${i}`;
+    document.body.appendChild(gear);
+  }
+});
+*/
