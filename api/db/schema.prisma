@@ -24,11 +24,15 @@ model Post {
   createdAt DateTime @default(now())
 }
 
-// model UserExample {
-//   id    Int     @id @default(autoincrement())
-//   email String  @unique
-//   name  String?
-// }
+model User {
+  id                  Int       @id @default(autoincrement())
+  name                String?
+  email               String    @unique
+  hashedPassword      String
+  salt                String
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+}
 
 model Contact {
   id        Int      @id @default(autoincrement())
