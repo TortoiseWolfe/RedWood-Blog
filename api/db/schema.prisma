@@ -18,9 +18,19 @@ generator client {
 // to create migrations for them and apply to your dev DB.
 // TODO: Please remove the following example:
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String
   body      String
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  name      String
+  body      String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
   createdAt DateTime @default(now())
 }
 
@@ -32,6 +42,7 @@ model User {
   salt                String
   resetToken          String?
   resetTokenExpiresAt DateTime?
+  roles               String    @default("moderator")
 }
 
 model Contact {

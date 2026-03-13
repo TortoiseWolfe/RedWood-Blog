@@ -45,7 +45,6 @@ const ContactPage = () => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     create({ variables: { input: data } })
-    console.log(data)
   }
 
   return (
@@ -59,7 +58,7 @@ const ContactPage = () => {
         error={error}
         formMethods={formMethods}
       >
-        {/* <FormError error={error} wrapperClassName="form-error" /> */}
+        <FormError error={error} wrapperClassName="form-error" />
 
         <Label name="name" errorClassName="error">
           Name
