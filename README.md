@@ -120,3 +120,82 @@ The best way to learn Redwood is by going through the comprehensive [tutorial](h
 
 - Stay updated: read [Forum announcements](https://community.redwoodjs.com/c/announcements/5), follow us on [Twitter](https://twitter.com/redwoodjs), and subscribe to the [newsletter](https://redwoodjs.com/newsletter)
 - [Learn how to contribute](https://redwoodjs.com/docs/contributing)
+
+## Fixing Storybook (for fellow students)
+
+If you follow the RedwoodJS tutorial and try to run `yarn rw storybook`, you'll probably get an error like this:
+
+```
+Cannot find module './dist/preset'
+```
+
+Here's what's going on and how we fixed it.
+
+### The problem
+
+RedwoodJS uses a package called `storybook-framework-redwoodjs-vite` to connect Storybook to your app. That package has a bug: it uses JavaScript imports without file extensions, like `from "./dist/preset"` instead of `from "./dist/preset.js"`.
+
+This worked fine on older versions of Node, but Node 20 is strict about this. When Storybook's command-line tool (which uses the older CommonJS module format) tries to load these files, Node says "I can't find that module" and crashes.
+
+So it's not your code that's broken — it's a packaging bug in the Storybook framework adapter.
+
+### What we tried that didn't work
+
+- **Upgrading Storybook to v8** — The framework adapter was built for Storybook v7, so upgrading Storybook just created version mismatches and new errors like `res.status is not a function`.
+- **Forcing a specific Storybook version with `resolutions`** — Same API incompatibility problem.
+- **Node's `--experimental-require-module` flag** — Didn't help with the extensionless imports.
+- **Fixing one import at a time** — Every time we patched one extensionless import, the next file in the chain had the same problem.
+
+### What actually fixed it
+
+We wrote a shell script (`scripts/patch-storybook.sh`) that goes through every file in `storybook-framework-redwoodjs-vite` and adds the missing `.js` extensions to all the relative imports. It turns `from "./dist/preset"` into `from "./dist/preset.js"`, and does the same for about a dozen other imports throughout the package.
+
+### How to use it
+
+After any `yarn install` (which resets node_modules), run the patch script before starting Storybook:
+
+```bash
+sh scripts/patch-storybook.sh
+yarn rw storybook
+```
+
+If you're using Docker like we are:
+
+```bash
+docker compose -f docker-compose.dev.yml exec redwood sh scripts/patch-storybook.sh
+docker compose -f docker-compose.dev.yml exec redwood yarn rw storybook --no-open --port 7910
+```
+
+The patch is safe to run multiple times — if the extensions are already there, it just does nothing.
+
+## Is RedwoodJS still maintained? (March 2026)
+
+Short answer: RedwoodJS is in **maintenance mode**. It's not dead, but active development has stopped.
+
+### What happened
+
+The RedwoodJS team pivoted. The original framework (what this tutorial uses) has been renamed to **[Redwood GraphQL](https://github.com/redwoodjs/graphql/releases)** and will only get security patches and critical fixes going forward. The team's energy is going into two new things:
+
+- **[RedwoodSDK](https://rwsdk.com/blog)** — A completely different framework built on server-first React running on Cloudflare Workers. Same team, new direction.
+- **[CedarJS](https://cedarjs.com)** — A community fork of the original RedwoodJS that is actively maintained with new features, bug fixes, and ongoing Node.js support.
+
+You can read the full announcement on the [RedwoodJS Community Forum](https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938/15).
+
+### Why RedwoodJS is stuck on Node 20
+
+The `package.json` locks the engine to `node: "=20.x"`. The team set that constraint during active development and never shipped Node 22 support before going into maintenance mode. Since they're only doing security patches now, adding Node 22 compatibility isn't on their radar.
+
+This matters because **[Node 20 LTS support ends April 30, 2026](https://endoflife.date/nodejs)**. After that date, Node 20 stops getting security updates. If you're building something real, you'll want a framework that runs on Node 22 or later.
+
+### What this means for you as a student
+
+The tutorial is still a solid way to learn full-stack concepts. The skills you picked up here transfer directly to other frameworks:
+
+- **React components and Cells** — The same patterns show up in Next.js, Remix, and RedwoodSDK
+- **GraphQL with SDL** — Used across the industry (Apollo, Hasura, etc.)
+- **Prisma ORM** — Works with any Node.js framework, not just Redwood
+- **Authentication and RBAC** — The concepts (roles, `requireAuth`, session management) are universal
+- **Storybook** — Framework-agnostic, works with anything React-based
+- **Testing with Jest** — Standard across the JavaScript ecosystem
+
+If you want to keep building with the same API and codebase style, check out **[CedarJS](https://cedarjs.com)** — it's a drop-in replacement that's actively maintained. If you want to see where the original Redwood team is headed, look at **[RedwoodSDK](https://rwsdk.com)**.

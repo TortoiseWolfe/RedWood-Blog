@@ -40,7 +40,7 @@ const Comment = ({ comment }: Props) => {
   }
 
   return (
-    <div>
+    <div className="comment">
       <h2>{comment.name}</h2>
       <time dateTime={comment.createdAt}>{comment.createdAt}</time>
       <p>{comment.body}</p>

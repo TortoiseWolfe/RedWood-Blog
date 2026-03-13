@@ -50,7 +50,7 @@ const CommentForm = ({ postId }: Props) => {
   }
 
   return (
-    <div>
+    <div className="comment-form">
       <h3>Leave a Comment</h3>
       <Form onSubmit={onSubmit} formMethods={formMethods} error={error}>
         <FormError error={error} wrapperClassName="form-error" />
