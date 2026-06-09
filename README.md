@@ -1,23 +1,55 @@
-# README
+# RedwoodJS Blog
 
-Welcome to [RedwoodJS](https://redwoodjs.com)!
+A full-stack blog built with [RedwoodJS](https://redwoodjs.com) — React + GraphQL + Prisma — featuring public articles with comments, a contact form, and a database-backed admin area protected by [dbAuth](https://redwoodjs.com/docs/authentication#self-hosted-auth-installation-and-setup) role-based authentication.
 
-> **Prerequisites**
+## 🎬 Demo
+
+> **Loom walkthrough:** _<!-- TODO: paste your Loom URL here -->_
+
+## 🚀 Quick Start (for reviewers)
+
+Get a fully seeded blog running — with example posts, comments, and an account you can log in with — in four commands.
+
+> **Prerequisites:** [Node.js](https://nodejs.org/en/) (=20.x) and [Yarn](https://yarnpkg.com/). On Windows, follow the [Windows development setup](https://redwoodjs.com/docs/how-to/windows-development-setup) guide.
+
+```bash
+yarn install                       # 1. install dependencies
+yarn redwood prisma migrate dev    # 2. create the database schema
+yarn redwood prisma db seed        # 3. load example posts, comments, and the default admin user
+yarn redwood dev                   # 4. start the app at http://localhost:8910
+```
+
+> Using Docker instead? See [Run with Docker](#run-with-docker) below — the same migrate/seed steps apply inside the container.
+
+### 🔑 Default login
+
+The seed creates an admin account you can use immediately:
+
+| Field    | Value                 |
+| -------- | --------------------- |
+| Email    | `admin@example.com`   |
+| Password | `password123`         |
+| Role     | `admin`               |
+
+### What you can do
+
+- **Read the blog** — visit [http://localhost:8910](http://localhost:8910) to see the 5 seeded posts. Click any post to read it and view its comments.
+- **Leave a comment** — open any article and submit a comment (no login required).
+- **Send a contact message** — use the [Contact](http://localhost:8910/contact) page.
+- **Log in and manage posts** — go to [/login](http://localhost:8910/login), sign in with the credentials above, then visit [/admin/posts](http://localhost:8910/admin/posts) to create, edit, and delete posts. (The admin area is protected — you must be logged in to reach it.)
+- **Sign up a new user** — the [/signup](http://localhost:8910/signup) page works too if you'd rather create your own account.
+
+> ⚠️ The default credentials are for local development and review only. Change them before deploying anything real.
+
+---
+
+The rest of this README is the standard RedwoodJS getting-started guide.
+
+> **The development server**
 >
-> - Redwood requires [Node.js](https://nodejs.org/en/) (=20.x) and [Yarn](https://yarnpkg.com/)
-> - Are you on Windows? For best results, follow our [Windows development setup](https://redwoodjs.com/docs/how-to/windows-development-setup) guide
-
-Start by installing dependencies:
-
-```
-yarn install
-```
-
-Then start the development server:
-
-```
-yarn redwood dev
-```
+> ```
+> yarn redwood dev
+> ```
 
 Your browser should automatically open to [http://localhost:8910](http://localhost:8910) where you'll see the Welcome Page, which links out to many great resources.
 
@@ -120,6 +152,21 @@ The best way to learn Redwood is by going through the comprehensive [tutorial](h
 
 - Stay updated: read [Forum announcements](https://community.redwoodjs.com/c/announcements/5), follow us on [Twitter](https://twitter.com/redwoodjs), and subscribe to the [newsletter](https://redwoodjs.com/newsletter)
 - [Learn how to contribute](https://redwoodjs.com/docs/contributing)
+
+## Run with Docker
+
+This repo ships a Docker Compose setup that runs the app and a PostgreSQL database together — no local Postgres install needed.
+
+```bash
+# 1. Start the app and database
+docker compose -f docker-compose.dev.yml up -d
+
+# 2. Create the schema and load seed data (posts, comments, default admin user)
+docker compose -f docker-compose.dev.yml exec redwood yarn rw prisma migrate dev
+docker compose -f docker-compose.dev.yml exec redwood yarn rw prisma db seed
+```
+
+The app is served at [http://localhost:8910](http://localhost:8910). Log in with the [default credentials](#-default-login) above.
 
 ## Fixing Storybook (for fellow students)
 

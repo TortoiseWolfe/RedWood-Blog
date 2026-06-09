@@ -1,7 +1,31 @@
+import { hashPassword } from '@redwoodjs/auth-dbauth-api'
+
 import { db } from 'api/src/lib/db'
 
 export default async () => {
   try {
+    // Seed a default admin user so reviewers can log in immediately.
+    // dbAuth verifies the password with the same scrypt `hashPassword`
+    // helper, so a user created here logs in exactly like one created
+    // through the /signup form. Change these in production!
+    const defaultEmail = 'admin@example.com'
+    const defaultPassword = 'password123'
+    const [hashedPassword, salt] = hashPassword(defaultPassword)
+
+    const user = await db.user.upsert({
+      where: { email: defaultEmail },
+      update: {},
+      create: {
+        name: 'Demo Admin',
+        email: defaultEmail,
+        hashedPassword,
+        salt,
+        roles: 'admin',
+      },
+    })
+
+    console.info(`  Seeded default user: ${user.email} / ${defaultPassword}`)
+
     // Seed blog posts
     const posts = await db.post.createMany({
       data: [
