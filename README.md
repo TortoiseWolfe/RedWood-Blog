@@ -6,6 +6,18 @@ A full-stack blog built with [RedwoodJS](https://redwoodjs.com) — React + Grap
 
 > **Loom walkthrough:** _<!-- TODO: paste your Loom URL here -->_
 
+Once the app is running (see [Quick Start](#-quick-start-for-reviewers)) it's live at **http://localhost:8910**. Log in with `admin@example.com` / `password123`.
+
+Walkthrough (~3 min):
+
+1. **Home page** — open http://localhost:8910 and scroll the 5 seeded posts.
+2. **Read an article + comments** — open http://localhost:8910/article/1 and show its comments.
+3. **Leave a comment** — on http://localhost:8910/article/1, submit a comment (no login needed) and show it appear.
+4. **Contact form** — go to http://localhost:8910/contact and send a message.
+5. **Log in** — go to http://localhost:8910/login and sign in with the credentials above.
+6. **Admin CRUD** — go to http://localhost:8910/admin/posts, create a new post at http://localhost:8910/admin/posts/new, edit it, show it on the home page (http://localhost:8910), then delete it.
+7. **Wrap** — default seeded user + example data; full setup is in the Quick Start below.
+
 ## 🚀 Quick Start (for reviewers)
 
 Get a fully seeded blog running — with example posts, comments, and an account you can log in with — in four commands.
